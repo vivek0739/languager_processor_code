@@ -1,0 +1,42 @@
+%{
+#include<stdio.h>
+%}
+LETTER[a-zA-Z]
+DIGIT[0-9]
+SPACE[ \n\t]
+%%
+{DIGIT}+{LETTER}+({LETTER}|{DIGIT})* {
+printf("error: %s\n",yytext);
+}
+"/*"({LETTER}|{DIGIT}|{SPACE})*"*/" {
+printf("recognized comment: %s\n",yytext);
+}
+if|else|then|begin|end|for|do|while|switch|case|default|break|continue|goto {
+printf("recognized keyword: %s\n",yytext);
+}
+"+"|"-"|OR {
+printf("recognized additive operator: %s\n",yytext);
+}
+"*"|"/"|DIV|MOD|AND {
+printf("recognized multiplicative operators: %s\n",yytext);
+}
+"e"("+"|"-"|" "){DIGIT}* {
+printf("recognized exponent: %s\n",yytext);
+}
+{LETTER}({LETTER}|{DIGIT})* {
+printf("recognized id: %s\n",yytext);
+}
+{DIGIT}+"."{DIGIT}* {
+printf("recognized float: %s\n",yytext);
+}
+{DIGIT}+ {
+printf("recognized digit: %s\n",yytext);
+}
+=|<>|<|<=|>|>= {
+printf("recognized relational operator: %s\n",yytext);
+}
+%%
+main()
+{
+yylex();
+}

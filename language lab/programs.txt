@@ -1,0 +1,21 @@
+language lab programs
+1. flex 
+	execution-
+		flex filename -ll
+		gcc lex.yy.c
+		./a.out
+2. recursive descent parser
+	programs are-
+		parser.c
+		parser1.c
+		tdparser.c
+3. yacc program to check given string is accepted by grammar.
+	programs are-
+		file.yacc grammar= anbn.
+		file1.yacc grammar check yourself.
+		file2.yacc grammar for arithmetic expression.
+4. SLR parsing.
+5. finding loops in flow graph.
+	program- loop.cpp
+6. finding dominators.
+	for program google search.
