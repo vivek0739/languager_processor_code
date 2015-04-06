@@ -1,0 +1,55 @@
+%{
+	#include<stdio.h>
+
+%}
+
+LETTER [a-zA-Z]
+DIGIT [0-9]
+digits {DIGIT}({DIGIT})*
+optional_fraction (.({DIGIT})*)
+optional_exponent ("E"[+-]{digits}{optional_fraction})
+
+%%
+
+"/*".+"*/"	 { printf("Recognise Commnet %s",yytext);}
+
+begin { printf("Recognise keyword %s",yytext);}
+end { printf("Recognise keyword %s",yytext);}
+if { printf("Recognise keyword %s",yytext);}
+then { printf("Recognise keyword %s",yytext);}
+else { printf("Recognise keyword %s",yytext);}
+for  { printf("Recognise keyword %s",yytext);}
+do { printf("Recognise keyword %s",yytext);}
+while { printf("Recognise keyword %s",yytext);}
+switch { printf("Recognise keyword %s",yytext);}
+case { printf("Recognise keyword %s",yytext);}
+default { printf("Recognise keyword %s",yytext);}
+break { printf("Recognise keyword %s",yytext);}
+contiue { printf("Recognise keyword %s",yytext);}
+goto { printf("Recognise keyword %s",yytext);}
+
+{LETTER}({LETTER}|{DIGIT})* {printf("Recognised identifier %s", yytext);}
+
+{optional_exponent}|{digits}|{digits}{optional_fraction}|{digits}{optional_fraction}{optional_exponent}  { printf("Recognised number %s",yytext);}
+
+
+
+"<=" { printf("Recognised Relation operator %s",yytext);}
+
+"<>" { printf("Recognised Relation operator %s",yytext);}
+
+">=" { printf("Recognised Relation operator %s",yytext);}
+
+"<" { printf("Recognised Relation operator %s",yytext);}
+
+"=" { printf("Recognised Relation operator %s",yytext);}
+
+">" { printf("Recognised Relation operator %s",yytext);}
+
+
+%%
+int main()
+{
+	yylex();
+	return 0;
+}
