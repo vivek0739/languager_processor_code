@@ -23,7 +23,8 @@ class NFAstate
                     transitions[i][j] = -1;
         }
 }*NFAstates;
-// Representation of a DFA state
+
+
 struct DFAstate
 {
         bool finalState;
@@ -31,12 +32,16 @@ struct DFAstate
         bitset<MAX_NFA_STATES> transitions[MAX_ALPHABET_SIZE];
         int symbolicTransitions[MAX_ALPHABET_SIZE];
 };
+
+
 set<int> NFA_finalStates;
 vector<int> DFA_finalStates;
 vector<DFAstate*> DFAstates;
 queue<int> incompleteDFAstates;
-int N, M; // N -> No. of stattes, M -> Size of input alphabet
-// finds the epsilon closure of the NFA state "state" and stores it into "closure"
+
+
+int N, M; 
+
 void epsilonClosure(int state, bitset<MAX_NFA_STATES> &closure)
 {
     for (int i = 0; i < N && NFAstates[state].transitions[0][i] != -1; i++)
@@ -46,7 +51,8 @@ void epsilonClosure(int state, bitset<MAX_NFA_STATES> &closure)
             epsilonClosure(NFAstates[state].transitions[0][i], closure);
         }
 }
-// finds the epsilon closure of a set of NFA states "state" and stores it into "closure"
+
+
 void epsilonClosure(bitset<MAX_NFA_STATES> state,
         bitset<MAX_NFA_STATES> &closure)
 {
@@ -54,15 +60,14 @@ void epsilonClosure(bitset<MAX_NFA_STATES> state,
         if (state[i] == 1)
             epsilonClosure(i, closure);
 }
-// returns a bitset representing the set of states the NFA could be in after moving
-// from state X on input symbol A
+
+
 void NFAmove(int X, int A, bitset<MAX_NFA_STATES> &Y)
 {
     for (int i = 0; i < N && NFAstates[X].transitions[A][i] != -1; i++)
         Y[NFAstates[X].transitions[A][i]] = 1;
 }
-// returns a bitset representing the set of states the NFA could be in after moving
-// from the set of states X on input symbol A
+
 void NFAmove(bitset<MAX_NFA_STATES> X, int A, bitset<MAX_NFA_STATES> &Y)
 {
     for (int i = 0; i < N; i++)
@@ -145,7 +150,7 @@ int main()
         }
     }
     // write out the corresponding DFA
-    ofstream fout("DFA.txt");
+  
     cout << D << " " << M << "\n" << DFA_finalStates.size();
     for (vector<int>::iterator it = DFA_finalStates.begin(); it
             != DFA_finalStates.end(); it++)
